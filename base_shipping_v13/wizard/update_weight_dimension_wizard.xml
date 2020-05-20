@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_update_weight_dimension_form" model="ir.ui.view">
+          <field name="model">update.weight.dimension</field>
+          <field name="arch" type="xml">
+            <form string="Update weight and dimension">
+                <!--<group>-->
+                  <!--<group>-->
+                      <!--<field name="weight"/>-->
+                      <!--<button name="update_weight" string="Update Weight" type="object" class="oe_highlight"/>-->
+                  <!--</group>-->
+                <!--</group>-->
+                <!--<div class="row" string="Dimension">-->
+                    <!--<strong><div class="col-xs-1">Length(cm)</div></strong>-->
+                    <!--<div class="col-xs-1"><field name="length"/></div>-->
+                    <!--<strong><div class="col-xs-1">Width(cm)</div></strong>-->
+                    <!--<div class="col-xs-1"><field name="width"/></div>-->
+                    <!--<strong><div class="col-xs-1">Height(cm)</div></strong>-->
+                    <!--<div class="col-xs-1"><field name="height"/></div>-->
+
+                <!--</div>-->
+                <!--<group>-->
+                    <!--<group><button name="update_dimension" string="Update Dimension" type="object" class="oe_highlight"/></group>-->
+                    <!--<group></group>-->
+                <!--</group>-->
+                <group>
+                    <field name="product_lines" nolabel="1">
+                        <tree editable="bottom" create="0">
+                            <field name="product_id" options="{'no_create':True}"/>
+                            <field name="default_code" readonly="1"/>
+                            <field name="weight"/>
+                            <field name="length"/>
+                            <field name="width"/>
+                            <field name="height"/>
+                        </tree>
+                    </field>
+                </group>
+              <footer>
+                <button string="Update" name="update_product_data" class="oe_link" type="object"/>
+                <button string="Cancel" class="oe_link" special="cancel"/>
+              </footer>
+            </form>
+          </field>
+        </record>
+
+
+<!--        <act_window id="action_weight_dimension"-->
+<!--            name="Update weight and dimension"-->
+<!--            binding_model="stock.picking"-->
+<!--            res_model="update.weight.dimension"-->
+<!--            view_mode="form"-->
+<!--            target="new"-->
+<!--            />        -->
+
+        <act_window id="action_weight_dimension"
+            name="Update weight and dimension"
+            binding_model="stock.picking"
+            res_model="update.weight.dimension"
+            view_mode="form"
+            binding_views="form"
+            target="new"
+            />
+    </data>
+</odoo>

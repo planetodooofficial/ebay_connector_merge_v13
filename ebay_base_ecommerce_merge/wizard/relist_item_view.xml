@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_relist_item_ebay_listing" model="ir.ui.view">
+            <field name="name">Add Ebay Listing</field>
+            <field name="model">relist.item</field>
+            <field name="arch" type="xml">
+                <form string="Add Listing">
+                    <separator string="Add Ebay Price To Be Updated" colspan="4" />
+                    <group col="4" colspan="4">
+                        <field name="name" />
+                    </group>
+                    <group col="2" colspan="4">
+                        <button name="relist_item_action" string="Relist" type="object" icon="fa-share" />
+                        <button special="cancel" string="_Cancel" icon="fa-ban"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+        <act_window name="Relist Item"
+            res_model="relist.item"
+            binding_model="ebay.product.listing"
+            view_mode="form"
+            target="new"
+            context="{'search_default_in_location':1}"
+            id="action_view_relist_item_ebay_listing"/>
+       
+    </data>
+</odoo>

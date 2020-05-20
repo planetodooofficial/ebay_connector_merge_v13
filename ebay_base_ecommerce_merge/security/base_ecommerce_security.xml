@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id ="group_supplier_custom" model="res.groups">
+            <field name="name">Custom / Supplier</field>
+        </record>
+
+            <record id ="group_ecommerce_manager" model="res.groups">
+            <field name="name">Ecommerce Manager</field>
+        </record>
+    </data>
+</odoo>

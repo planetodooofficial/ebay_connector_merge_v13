@@ -1,0 +1,58 @@
+{
+    "name": "Ebay Connector",
+    "version": "1.1",
+    "depends": ['base', 'website', 'sale', 'product', 'stock', 'sale_stock', 'delivery', "account", 'base_shipping_v13'],
+    "author": "Planet Odoo",
+    "description": """
+    Ebay and Base Module for All MarketPlaces Management\n
+    """,
+    "website" : "www.planet-odoo.com",
+    'images': [],
+    "category": "ecommerce",
+    'summary': 'Ebay and Base Module For All E-Commerce Modules',
+    "demo": [],
+    "data": [
+            'security/base_ecommerce_security.xml',
+            'security/ir.model.access.csv',
+            'data/ebay.site.csv',
+        #            'report/sale_report_custom_view.xml',
+            'view/instance_view.xml',
+            'view/sale_view.xml',
+            'view/payment_view.xml',
+            'view/log_view.xml',
+            'view/import_sequence.xml',
+            'view/attribute_view.xml',
+            'view/base_menu_view.xml',
+            'view/product_images_view.xml',
+            'view/attribute_view.xml',
+            'wizard/update_marketplace_price_view.xml',
+            'wizard/update_bulk_carrier_view.xml',
+            'wizard/relist_item_view.xml',
+            'view/list_item.xml',
+        #            'wizard/test_view.xml',
+            'view/product_view.xml',
+            'view/res_partner_view.xml',
+            'view/logger_view.xml',
+#            'payment.method.ecommerce.csv'
+            'data/return_cron.xml',
+            'wizard/refund_order_view.xml',
+            'view/ebay_view.xml',
+            # 'view/product_images_view.xml',
+            'view/stock_view.xml',
+            'view/delivery_view.xml',
+            # 'view/sale_view.xml',
+            # 'view/res_partner_view.xml',
+            # 'view/attribute_view.xml',
+            'view/template_view.xml',
+            'view/ebay_data.xml',
+            'view/ebay_oauth_view.xml',
+            'view/oauth_thank_you_template.xml',
+            # 'view/product_view.xml'
+            # 'wizard/update_marketplace_price_view.xml',
+#            'channel2.csv'
+    ],
+    'auto_install': False,
+    "installable": True,
+}
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+

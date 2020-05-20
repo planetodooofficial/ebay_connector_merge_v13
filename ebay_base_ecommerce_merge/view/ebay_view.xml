@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--Amazon Instance-->
+        <!--Amazon Instance form  View-->
+        <record id="ebay_instance_form_view" model="ir.ui.view">
+            <field name="name">ebay.instance.form</field>
+            <field name="model">sales.channel.instance</field>
+            <field name="inherit_id" ref="ebay_base_ecommerce_merge.sales_channel_instance_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="before">
+                    <header  attrs="{'invisible':[('module_id','!=','ebay_base_ecommerce_merge')]}">
+
+                        <button name="get_authorization_code" type="object" string="Get User Token"  class="oe_highlight" attrs="{'invisible':[('ebay_oauth','=',False)]}"/>
+                        <button name="renew_token" type="object" string="Refresh User Token" class="oe_highlight" attrs="{'invisible':[('ebay_oauth','=',False)]}"/>
+
+                    </header>
+
+                </xpath>
+                <xpath expr="//group[@name='module']" position="after">
+                    <group>
+                        <field name="ebay_oauth" readonly="1" attrs="{'invisible':[('module_id','!=','ebay_base_ecommerce_merge')]}"/>
+                    </group>
+                    <group  attrs="{'invisible':[('module_id','!=','ebay_base_ecommerce_merge')]}">
+
+                        <span attrs="{'invisible':[('ebay_oauth','=',False)]}">Please enter the mandatory details and save the record. Use Get User Token button to generate the user token</span>
+                        <separator string="eBay Credentials" colspan="4"/>
+
+                        <group>
+                            <field name="sandbox" onchange="onchange_environment(sandbox)"/>
+                            <field name="server_url" readonly="1"/>
+                            <field name="ebayuser_id" attrs="{'required': [('module_id','=','ebay_base_ecommerce_merge')]}"/>
+                            <field name="dev_id" attrs="{'required': [('module_id','=','ebay_base_ecommerce_merge'),('ebay_oauth','=',False)]}"/>
+                            <field name="refresh_token"/>
+                            <field name="refresh_token_expiry" readonly="1"/>
+                            <field name="auth_n_auth_token"/>
+                        </group>
+                        <group>
+                            <field name="app_id" attrs="{'required': [('module_id','=','ebay_base_ecommerce_merge'),('ebay_oauth','=',False)]}"/>
+                            <field name="cert_id" attrs="{'required': [('module_id','=','ebay_base_ecommerce_merge'),('ebay_oauth','=',False)]}"/>
+                            <field name="site_id" attrs="{'required': [('module_id','=','ebay_base_ecommerce_merge')]}"/>
+                            <field name="auth_token" attrs="{'required': [('module_id','=','ebay_base_ecommerce_merge'),('ebay_oauth','=',False)]}"/>
+                            <field name="auth_token_expiry" readonly="1"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

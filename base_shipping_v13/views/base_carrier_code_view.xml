@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_base_carrier_code" model="ir.ui.view">
+            <field name="name">base.carrier.code.form</field>
+            <field name="model">base.carrier.code</field>
+            <field name="arch" type="xml">
+                <form string="Carrier Codes">
+                    <sheet>
+                         <group>
+                             <field name="name" required="1"/>
+                            <field name="select_service" required="1"/>
+                         </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="carrier_codes_tree_view">
+            <field name="name">base.carrier.code.tree.view</field>
+            <field name="model">base.carrier.code</field>
+            <field name="arch" type="xml">
+                <tree string="Carrier Codes">
+                    <field name="name"/>
+                    <field name="select_service"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_base_carrier_code_form" model="ir.actions.act_window">
+            <field name="name">Carrier Codes</field>
+            <field name="res_model">base.carrier.code</field>
+            <field name="type">ir.actions.act_window</field>
+<!--            <field name="binding_view_types">form</field>-->
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="carrier_codes_tree_view"/>
+        </record>
+
+
+        <!--<menuitem action="action_base_carrier_code_form" id="menu_base_carrier_code_form" parent="delivery.menu_delivery" groups="base_shipping_v13.group_base_shipping_manager"/>-->
+        <menuitem action="action_base_carrier_code_form" id="menu_base_carrier_code_form" parent="delivery.menu_delivery" groups="base.group_system"/>
+
+    </data>
+</odoo>

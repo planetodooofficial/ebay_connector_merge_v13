@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id ="group_base_shipping_manager" model="res.groups">
+            <field name="name">Shipping Manager</field>
+        </record>
+    </data>
+</odoo>

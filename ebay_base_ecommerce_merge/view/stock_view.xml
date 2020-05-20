@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_picking_out_form_inherit_base_ecomm" model="ir.ui.view">
+            <field name="name">stock.picking.out.form.inherit.base_ecomm</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='priority']" position="after">
+                    <group>
+                     <field name="track_exported" />
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

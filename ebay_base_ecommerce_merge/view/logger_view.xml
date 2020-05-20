@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_company_logger_form">
+            <field name="name">view.company.logger.form</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Logger Settings">
+                        <group>
+                            <field name="debugging_mode"/>
+                        </group>
+                    </page>
+                </xpath>
+                <notebook  position="inside">
+            		<page string="Product images">
+                        <group>
+                            <field name="local_media_repository"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_action_button_form_update_marketplace" model="ir.ui.view">
+            <field name="name">Update Marketplace Price</field>
+            <field name="model">update.marketplace.price</field>
+            <field name="arch" type="xml">
+            <form string="Update Marketplaces Stocks and Prices" version="7.0">
+                <group colspan="4">
+                    <field name="name" placeholder="Update Status"/>
+                    <field name="shop_id"/>
+                </group>
+                <footer>
+                    <button name="update_price" string="Update Price" type="object" class="oe_highlight"/>
+                    <button name="update_stock" string="Update Stock" type="object" class="oe_highlight"/>
+                    <button name="update_stock_price" string="Update Stock and Price" type="object" class="oe_highlight"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+        
+        <act_window name="Update Marketplaces Stocks and Prices"
+            res_model="update.marketplace.price"
+            binding_model="product.product"
+            view_mode="form"
+            target="new"
+            context="{'search_default_in_location':1}"
+            id="action_marketplaces_stock_and_prices"/>
+    </data>
+</odoo>

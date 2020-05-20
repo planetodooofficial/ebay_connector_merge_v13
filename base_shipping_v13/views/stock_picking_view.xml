@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_picking_out_base_shipping_form" model="ir.ui.view">
+            <field name="name">stock.picking.out.form.inherit.base_shipping</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='do_unreserve']" position="replace">
+                              <button name="do_unreserve" string="Unreserve" groups="base.group_user" type="object" attrs="{'invisible': ['|', '|', ('picking_type_code', '=', 'incoming'), ('state', 'not in', ('assigned', 'partially_available','needs_package_details')), ('is_locked', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//header/button[@name='action_cancel']" position="replace">
+                    <button name="action_cancel" attrs="{'invisible': ['|', ('state', 'not in', ('assigned', 'confirmed', 'partially_available', 'draft', 'waiting','needs_package_details')), ('is_locked', '=', False)]}" string="Cancel" groups="base.group_user" type="object"/>
+                </xpath>
+                <xpath expr="//header/button[@name='do_print_picking']" position="replace">
+                <button name="do_print_picking" string="Print" groups="stock.group_stock_user" type="object" attrs="{'invisible': ['|', ('state', 'not in', ('assigned', 'partially_available','needs_package_details')), ('is_locked', '=', False)]}"/>
+                </xpath>
+                <field name="state" position="replace">
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,partially_available,needs_package_details,assigned,done" />
+                </field>
+                <xpath expr="//notebook" position="inside">
+                    <field name="picking_internal_type" invisible="1"/>
+                    <page string="Shipping Settings" attrs="{'invisible':[('picking_internal_type','=',False)]}">
+                        <group>
+                            <group>
+
+                                <field name="label_generated" />
+                                <field name="label_generated_date" />
+                                <field name="label_generated_uid" />
+                                <field name="label_printed" />
+                                 <field name="label_printed_date" />
+                                <field name="label_printed_uid" />
+
+                                <field name="manifested" />
+
+                            </group>
+                            <group>
+                                <!--<field name="picklist_printed" />-->
+                                <field name="shipment_created" />
+                                <field name="shipment_created_uid" />
+                                <field name="shipment_created_date" />
+                                <field name="faulty" />
+
+
+                            </group>
+
+
+                            <field name="error_log" />
+                        </group>
+                    </page>
+                    <page string="Shipping Info" attrs="{'invisible':[('picking_internal_type','=',False)]}">
+
+                        <group name = "Dimension" colspan="4" >
+                            <separator string = "Dimension" />
+                            <group colspan="4" col="4" >
+                            <field name="length" required = "1"/>
+                            <field name="width" required = "1"/>
+                            <field name="height" required = "1"/>
+
+                            </group>
+                        </group>
+                        <group>
+                        <field name="note" nolabel="1" placeholder="Add an internal note or description that will be printed on the Shipment Label" class="oe_inline"/>
+                        </group>
+                    </page>
+
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="shipping_delivery_orders_awaiting_dispatch" model="ir.ui.view">
+            <field name="name">shipping.delivery</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                    <field name="partner_id" position="replace">
+                        <field name="products_sku" string="SKU" />
+                        <field name="products_name" string="Product"/>
+                    </field>
+                    <field name="location_dest_id" position="replace">
+                        <field name="partner_id" string="Customer"/>
+                    </field>
+                    <field name="origin" invisible="1"/>
+                    <field name="backorder_id" invisible="1"/>
+                    <field name="group_id" position="replace">
+                        <field name="customer_postcode" string="Postcode"/>
+                        <field name="customer_country" string="Country"/>
+                    </field>
+            </field>
+        </record>
+
+
+
+
+        <record id="action_base_shipping_delivery_orders" model="ir.actions.act_window">
+            <field name="name">Awaiting Dispatch</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_id" ref="shipping_delivery_orders_awaiting_dispatch"/>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('label_printed', '=', False),('label_generated', '=', False),('faulty', '=', False),('state','!=','done'),('state','!=','cancel')]</field>
+        </record>
+
+        <record id="action_base_shipping_delivery_orders_printed" model="ir.actions.act_window">
+            <field name="name">To be Pick'n'Packed</field>
+<!--            <field name="picknpackCount"/>-->
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('label_generated', '=', True),('label_printed', '=', False),('manifested', '=', False),('faulty', '=', False)]</field>
+        </record>
+
+        <record id="action_base_shipping_delivery_orders_shipped" model="ir.actions.act_window">
+            <field name="name">Ready to Dispatch</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('label_printed', '=', True),('manifested', '=', False),('faulty', '=', False)]</field>
+
+        </record>
+        <record id="action_base_shipping_delivery_orders_processed" model="ir.actions.act_window">
+            <field name="name">Dispatched Orders</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('manifested', '=', True)]</field>
+        </record>
+
+        <record id="action_base_shipping_delivery_orders_faulty" model="ir.actions.act_window">
+            <field name="name">Label Faults</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('faulty', '=', True)]</field>
+        </record>
+
+        <!--stock.menu_stock_root-->
+        <!--need to commit after zesterp_custom-->
+        <menuitem id="menu_base_shipping_delivery_orders_label" name="Order Fulfilment" parent="sale.sale_menu_root" groups="base_shipping_v13.group_base_shipping_manager" sequence="2"/>
+        <!--<menuitem action="action_base_shipping_delivery_orders" id="menu_base_shipping_delivery1" parent="menu_base_shipping_delivery_orders_label"/>-->
+        <!--<menuitem action="action_base_shipping_delivery_orders_printed" id="menu_base_shipping_delivery_printed" parent="menu_base_shipping_delivery_orders_label"/>-->
+        <!--<menuitem action="action_base_shipping_delivery_orders_shipped" id="menu_base_shipping_delivery_shipped" parent="menu_base_shipping_delivery_orders_label"/>-->
+        <!--<menuitem action="action_base_shipping_delivery_orders_processed" id="menu_base_shipping_delivery_processed" parent="menu_base_shipping_delivery_orders_label"/>-->
+        <!--<menuitem action="action_base_shipping_delivery_orders_faulty" id="menu_base_shipping_delivery_faulty" parent="menu_base_shipping_delivery_orders_label"/>-->
+
+
+
+
+
+        <menuitem id="menu_shipping_services_settings" name="Shipping Services" parent="stock.menu_stock_config_settings" groups="base_shipping_v13.group_base_shipping_manager"/>
+
+
+
+
+
+
+
+    </data>
+</odoo>

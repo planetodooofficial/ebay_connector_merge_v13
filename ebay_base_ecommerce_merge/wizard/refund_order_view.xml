@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_refund_order" model="ir.ui.view">
+            <field name="name">Refund Order</field>
+            <field name="model">refund.order</field>
+            <field name="arch" type="xml">
+                <form string="Refund Order">
+                    <group attrs="{'invisible': [('state','!=', 'new')]}">
+                        <group>
+                         <field name="state" invisible="1"/>
+                         <field name="name"/>
+                         <field name="activity_options"/>
+                        </group>
+                        <group>
+                         <field name="total_amount"/>
+                         <field name="rma_sent"/>
+                        </group>
+                    </group>
+                    <group attrs="{'invisible': [('state','!=', 'done')]}">
+                        <field name="refund_status"/>
+                    </group>
+                    <notebook attrs="{'invisible': [('state','!=', 'new')]}">
+                        <page string="Refund Items">
+                            <field name="return_line">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="refund_type"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Comment">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
+
+                    <group col="2" colspan="4">
+                        <button name="get_activity_options" string="Get Activity Options" type="object" icon="fa-share" invisible="1"/>
+                        <button name="issue_refund" string="Refund" type="object" icon="fa-share"/>
+                        <button name="provide_seller_info" string="Send RMA" type="object" icon="fa-share" invisible="1"/>
+                        <button name="getReturnDetail" string="Get Return Status" type="object" icon="fa-share" invisible="1"/>
+                        <button special="cancel" string="_Cancel" icon="fa-ban" invisible="1"/>
+                        <!--<button name="make_entry" string="Make Entry" type="object"/>-->
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Refund Order"
+            res_model="refund.order"
+            binding_model="sale.order.line"
+            view_mode="form"
+            target="new"
+            id="action_refund_order_ebay"/>
+
+       
+    </data>
+</odoo>

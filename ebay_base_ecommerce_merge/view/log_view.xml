@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Log Tree View-->
+        <record model="ir.ui.view" id="log_tree_view">
+            <field name="name">log.tree.view</field>
+                <field name="model">ecommerce.logs</field>
+                <field name="arch" type="xml">
+                    <tree string="Logs">
+                        <field name="shop_id" />
+                        <field name="activity" />
+                        <field name="start_datetime" />
+                        <field name="end_datetime" />
+                        <field name="message" />
+                    </tree>
+                </field>
+        </record>
+
+        <!--Log method Action-->
+        <record id="action_log_view" model="ir.actions.act_window">
+            <field name="name">Log</field>
+            <field name="res_model">ecommerce.logs</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+       </data>
+ </odoo>

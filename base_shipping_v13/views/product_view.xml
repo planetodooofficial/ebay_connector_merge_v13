@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="base_shipping_product_template_form_view">
+            <field name="name">product.template.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales']//group[@name='description']" position="after">
+                    <label for="length" string="Dimension"/>
+                    <table cellpadding="5">
+                        <tr>
+                            <td>Length<field name="length"/>(mm)</td>
+                            <td>Width<field name="width"/>(mm)</td>
+                            <td>Height<field name="height"/>(mm)</td>
+                        </tr>
+                    </table>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
